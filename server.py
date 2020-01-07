@@ -1,4 +1,6 @@
 from flask import Flask
+from flask import render_template
+
 import numpy as np
 from scipy import stats
 from random import randint
@@ -11,7 +13,8 @@ app = Flask(__name__)
 # app, the flask application can be used to define routes or url within our webserver
 @app.route('/') # / > means it's the homepage
 def index():
-    return 'Hello, World!'
+	return render_template('index.html', name='Ada')
+    #return 'Hello, World!'
 
 @app.route('/roll_dice')
 def roll_dice():
@@ -21,11 +24,17 @@ def roll_dice():
 
 @app.route('/roll_dice/<int:ndice>') #turn ndice from str into int
 def roll_dice_option(ndice):
-	rolls = [randint(1,6) for _ in range(1,6)]
-	output = "<h3>Here are your dice rolls: </h3>"
-	output += '<br />'
-	for roll in rolls:
-		output += str(roll) + '<br />'
-	print(output)
-	return output
+	rolls = [randint(1,6) for _ in range(1,ndice+1)]
+	
+	return render_template('roll-dice.html', name='Ada', rolls=rolls)
+
+# @app.route('/roll_dice/<int:ndice>') #turn ndice from str into int
+# def roll_dice_option(ndice):
+# 	rolls = [randint(1,6) for _ in range(1,6)]
+# 	output = "<h3>Here are your dice rolls: </h3>"
+# 	output += '<br />'
+# 	for roll in rolls:
+# 		output += str(roll) + '<br />'
+# 	print(output)
+# 	return output
 	

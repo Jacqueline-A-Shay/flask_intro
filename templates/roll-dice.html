@@ -1,0 +1,14 @@
+<!doctype html5>
+<html>
+    <head>
+        <title>My Flask Application</title>
+    </head>
+    <body>
+        <h1>Hello, {{ name.upper() }}!</h1>
+        <p>This is the index page!</p>
+        <h2>Here's your random numbers:</h2>
+        {% for roll in rolls %}
+                <p>{{ roll }}</p>
+        {% endfor %}
+    </body>
+</html>
