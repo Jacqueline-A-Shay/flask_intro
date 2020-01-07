@@ -6,6 +6,16 @@ import numpy as np
 from scipy import stats
 from random import randint
 
+from time import strftime
+
+import pandas as pd
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
+
+import model
+
 # create a flask application
 app = Flask(__name__)
 
@@ -56,4 +66,16 @@ def handle_form_submission():
     greeting += name + '!'
 
     return render_template('greeting-result.html', greeting=greeting)
+
+
+@app.route('/scam_detector')
+def scam_detector():
+	return render_template('scam_detector.html')
+
+@app.route('/analyze_detector_input', methods=['POST'])
+def prediction():
+    word = request.form['word']
+    result = model.predict(word)
+
+    return render_template('scam_analysis.html', result=result)
 	
