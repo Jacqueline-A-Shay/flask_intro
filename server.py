@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 
 import numpy as np
 from scipy import stats
@@ -37,4 +38,22 @@ def roll_dice_option(ndice):
 # 		output += str(roll) + '<br />'
 # 	print(output)
 # 	return output
+
+@app.route('/my-first-form')
+def my_first_form():
+    return render_template('my-first-form.html')
+
+@app.route('/make-greeting', methods=['POST'])
+def handle_form_submission():
+    name = request.form['name']
+    title = request.form['title']
+
+    greeting = 'Hello, '
+
+    if title != '':
+        greeting += title + ' '
+
+    greeting += name + '!'
+
+    return render_template('greeting-result.html', greeting=greeting)
 	
